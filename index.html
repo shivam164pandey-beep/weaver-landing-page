@@ -1,0 +1,365 @@
+<!DOCTYPE html><html class="dark scroll-smooth" lang="en" style=""><head>
+<!-- TODO(security): Add SRI for Tailwind CDN and implement a strict CSP -->
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Weave AI - Your Thoughts, Organized</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Geist:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+       .material-symbols-outlined {
+           font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+       }
+       .glass-card {
+           background: rgba(30, 41, 59, 0.5);
+           backdrop-filter: blur(20px);
+           border: 1px solid rgba(255, 255, 255, 0.1);
+       }
+       .ai-glow {
+           box-shadow: 0 0 20px 0 rgba(208, 188, 255, 0.2);
+       }
+       .shimmer-border {
+           position: relative;
+       }
+       .shimmer-border::after {
+           content: "";
+           position: absolute;
+           inset: -1px;
+           background: linear-gradient(90deg, #d0bcff, #adc6ff, #dbb8ff, #d0bcff);
+           background-size: 300% 100%;
+           z-index: -1;
+           border-radius: inherit;
+           animation: shimmer 4s linear infinite;
+       }
+       @keyframes shimmer {
+           0% { background-position: 0% 0%; }
+           100% { background-position: 100% 0%; }
+       }
+       body {
+           background-color: #0b1326;
+           color: #dae2fd;
+       }
+   </style>
+<script id="tailwind-config">
+     tailwind.config = {
+       darkMode: "class",
+       theme: {
+         extend: {
+           "colors": {
+                   "on-secondary-container": "#e6ecff",
+                   "primary-fixed-dim": "#d0bcff",
+                   "outline-variant": "#494454",
+                   "error-container": "#93000a",
+                   "inverse-surface": "#dae2fd",
+                   "on-background": "#dae2fd",
+                   "secondary-fixed": "#d8e2ff",
+                   "surface-tint": "#d0bcff",
+                   "on-secondary-fixed-variant": "#004395",
+                   "inverse-primary": "#6d3bd7",
+                   "surface-bright": "#31394d",
+                   "secondary-container": "#0566d9",
+                   "on-secondary": "#002e6a",
+                   "on-secondary-fixed": "#001a42",
+                   "on-surface": "#dae2fd",
+                   "tertiary-fixed": "#efdbff",
+                   "on-error": "#690005",
+                   "on-primary-container": "#340080",
+                   "surface-container-highest": "#2d3449",
+                   "primary": "#d0bcff",
+                   "surface-dim": "#0b1326",
+                   "secondary": "#adc6ff",
+                   "surface-container-high": "#222a3d",
+                   "tertiary": "#dbb8ff",
+                   "on-tertiary-fixed": "#29074a",
+                   "primary-fixed": "#e9ddff",
+                   "on-error-container": "#ffdad6",
+                   "on-surface-variant": "#cbc3d7",
+                   "inverse-on-surface": "#283044",
+                   "on-tertiary-fixed-variant": "#573878",
+                   "background": "#0b1326",
+                   "on-primary": "#3c0091",
+                   "error": "#ffb4ab",
+                   "outline": "#958ea0",
+                   "on-tertiary": "#3f2160",
+                   "on-tertiary-container": "#381959",
+                   "secondary-fixed-dim": "#adc6ff",
+                   "surface": "#0b1326",
+                   "primary-container": "#a078ff",
+                   "surface-container-lowest": "#060e20",
+                   "on-primary-fixed": "#23005c",
+                   "on-primary-fixed-variant": "#5516be",
+                   "surface-container": "#171f33",
+                   "tertiary-container": "#a482c8",
+                   "surface-container-low": "#131b2e",
+                   "tertiary-fixed-dim": "#dbb8ff",
+                   "surface-variant": "#2d3449"
+           },
+           "borderRadius": {
+                   "DEFAULT": "0.25rem",
+                   "lg": "0.5rem",
+                   "xl": "0.75rem",
+                   "full": "9999px"
+           },
+           "spacing": {
+                   "container-margin-mobile": "20px",
+                   "container-margin-desktop": "80px",
+                   "gutter": "16px",
+                   "base": "8px",
+                   "stack-lg": "48px",
+                   "stack-sm": "12px",
+                   "stack-md": "24px"
+           },
+           "fontFamily": {
+                   "body-lg": ["Inter"],
+                   "headline-lg": ["Inter"],
+                   "label-sm": ["Geist"],
+                   "label-md": ["Geist"],
+                   "body-md": ["Inter"],
+                   "headline-md": ["Inter"],
+                   "display-lg": ["Inter"],
+                   "headline-lg-mobile": ["Inter"]
+           },
+           "fontSize": {
+                   "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                   "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                   "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                   "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                   "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                   "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                   "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                   "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+           }
+         },
+       },
+     }
+   </script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- Top AppBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-sm h-16 px-container-margin-mobile md:px-container-margin-desktop">
+<div class="max-w-7xl mx-auto w-full h-full flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="text-headline-md font-headline-md text-primary dark:text-primary-fixed-dim">Weave</span>
+</div>
+<div class="hidden md:flex items-center gap-8 text-on-surface-variant font-label-md">
+<a class="hover:opacity-80 transition-opacity" href="#journey">The Journey</a>
+<a class="hover:opacity-80 transition-opacity" href="#intelligence">Intelligence</a>
+
+
+<a href="https://forms.gle/ZwecTxfx7aS5heS88" target="_blank"><button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-label-md active:scale-95 transition-transform">Join Waitlist</button></a>
+</div>
+<div class="md:hidden flex items-center">
+<span class="material-symbols-outlined text-primary" data-icon="search">search</span>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative pt-32 pb-stack-lg px-container-margin-mobile md:px-container-margin-desktop min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
+<!-- Abstract Background Glow -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] -z-10"></div>
+<div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[100px] -z-10"></div>
+<div class="max-w-4xl mx-auto space-y-6">
+<h1 class="font-display-lg text-display-lg md:text-[72px] leading-tight tracking-tighter text-on-surface">
+               Transform your <span class="text-primary italic">raw thoughts</span> into refined wisdom.
+           </h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl mx-auto font-body-lg">
+               Weave AI captures the fleeting fragments of your voice and architecturally organizes them into a cognitive library of structured knowledge.
+           </p>
+<div class="flex flex-col md:flex-row gap-4 justify-center items-center pt-8">
+<a href="https://forms.gle/ZwecTxfx7aS5heS88" target="_blank"><button class="w-full md:w-auto bg-primary text-on-primary px-10 py-4 rounded-full font-label-md text-lg ai-glow active:scale-95 transition-all">Join Waitlist</button></a>
+<a href="#journey"><button class="w-full md:w-auto glass-card text-on-surface px-10 py-4 rounded-full font-label-md text-lg active:scale-95 transition-all">Watch the Journey</button></a>
+</div>
+</div>
+<!-- Hero Mockup: Unified Dashboard -->
+<div class="mt-20 w-full max-w-5xl relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-[40px] blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative rounded-[32px] overflow-hidden border border-white/10 glass-card" style="--mouse-x: 931px; --mouse-y: 66px;">
+<img alt="A high-fidelity, professional 3D visualization of an AI 'second brain' concept for the app 'Weave'. In the center, a sleek dark smartphone shows a glowing microphone button and live transcription. Radiant, flowing data streams emerge from the phone, connecting to a structured network of floating glassmorphic nodes and a stylized human brain silhouette." class="w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPWqVsnJzUWqYu-LdtTCf_wYhOLZxfrzbU4IxddAuFfnoof2UjOV6DJUUDI-r0awpBeV1wdqe0eKoVVi6YWwdmSYy7IgQWGgnTGosH6nyIpZ_58zV-A3IClQkgqzjMmdRWnqwBctD0Z-Y1Ibf3KMmNtvjh3XeCzBg1Uz4i1KNU0CJRIzSwqHyI_ZacGB4yaSNHHEUvOm7JXZjL8SshNOszPymchmR7g2YJ92I4g2B6PakKVOItTUKzH7ErJFA7mSpcei3WQ7yuSqk">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-40"></div>
+</div>
+<!-- Floating Decorative Element -->
+<div class="absolute -right-8 top-1/4 hidden lg:block animate-bounce duration-3000">
+<div class="glass-card p-6 rounded-2xl flex items-center gap-4 border-primary/20">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="auto_awesome">auto_awesome</span>
+<div class="text-left">
+<p class="font-label-md text-primary">Insight Detected</p>
+<p class="text-xs text-on-surface-variant">Connecting to "Q3 Strategy"</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- The Journey (Alternating Sections) -->
+<section class="py-stack-lg space-y-32" id="journey">
+<!-- Step 1: Capture -->
+<div class="px-container-margin-mobile md:px-container-margin-desktop max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+<div class="order-2 md:order-1 relative flex justify-center">
+<div class="w-[320px] aspect-[9/19] rounded-[40px] border-8 border-surface-container-highest bg-background overflow-hidden relative shadow-2xl">
+<img alt="Weave Voice Capture" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlh0gBgVXpWh4dUBnD_MIbA3NPigMa4Nh1XR3UUslNBB9J6d0Vm7dNv-PJVnJ3YWkA9GtmNPSe3pJ6KOKwk4tGfzLtW2n6yzTD148nRU_sVN1bT4OlSx0BcbAcGFawtBCBXydaKl0RYW3pl85lg8He3FHUIXeNGxOzTSzTNirzz7AZH3UdzXwIq6QYj3wFdDbccX_IMMOMO-ZWiIXWbOW3ugdJ4Nsx1Z1n_0U8RHpb-FKAeZ9Crn_FoETCPPIGj6m_fIqSQK26e6c">
+</div>
+<!-- Abstract Glow -->
+<div class="absolute -z-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+</div>
+<div class="order-1 md:order-2 space-y-6">
+<span class="text-primary font-label-md tracking-widest uppercase">Phase 01 — Capture</span>
+<h2 class="text-headline-lg md:text-display-lg font-headline-lg leading-tight">Speak as fast as you think.</h2>
+<p class="text-body-lg text-on-surface-variant">Don't let brilliant ideas vanish. Simply record your raw thoughts. Weave's high-fidelity capture engine processes natural language with zero latency, ensuring every nuance of your intent is preserved.</p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
+<span class="font-label-md">Studio-quality noise suppression</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
+<span class="font-label-md">Real-time tone analysis</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Step 2: Understand -->
+<div class="px-container-margin-mobile md:px-container-margin-desktop max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+<div class="space-y-6">
+<span class="text-tertiary font-label-md tracking-widest uppercase">Phase 02 — Understand</span>
+<h2 class="text-headline-lg md:text-display-lg font-headline-lg leading-tight">AI that truly listens.</h2>
+<p class="text-body-lg text-on-surface-variant">Our models don't just transcribe; they contextualize. Weave automatically identifies themes, sentiments, and action items from your voice memos, categorizing them instantly.</p>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 rounded-full glass-card text-label-sm border-white/5">#Innovation</span>
+<span class="px-4 py-2 rounded-full glass-card text-label-sm border-white/5">#MeetingNotes</span>
+<span class="px-4 py-2 rounded-full glass-card text-label-sm border-white/5">#PersonalGrowth</span>
+</div>
+</div>
+<div class="relative flex justify-center">
+<div class="w-[320px] aspect-[9/19] rounded-[40px] border-8 border-surface-container-highest bg-background overflow-hidden relative shadow-2xl">
+<img alt="AI Categorization and Knowledge Graph" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXCJ_vMj61ptATSI4nmOZ3JoKRZp33VYz4jwZRBpi5KIrKUsFyoIDEa_GzCfzZCSFHSRVomiYfdt2YOTtthyaN44hJMbdIYs7QVeZflP1t2W5ZXFhiyfrO8MWxwfFWLPP-E943NK5h-ABfDV1TgoipURyZgrL2dsuqJaSmG5sbQGdEyDtFXrJhct0oUBrKZ79N5AyHNgnC4y_HcbNuOGETrLjctKKq34ylTzaW9pekO9_ImekpOyp3UiRDOUhmJ9CRY9Wh8mZcBa8">
+</div>
+<div class="absolute -z-10 w-64 h-64 bg-tertiary/20 rounded-full blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+</div>
+</div>
+</section>
+<!-- Automatic Intelligence Section (Bento Grid) -->
+<section class="py-stack-lg bg-surface-container-lowest/50" id="intelligence">
+<div class="px-container-margin-mobile md:px-container-margin-desktop max-w-7xl mx-auto space-y-12">
+<div class="text-center space-y-4">
+<h2 class="text-headline-lg md:text-display-lg font-headline-lg">Automatic Intelligence</h2>
+<p class="text-body-lg text-on-surface-variant max-w-2xl mx-auto">The heavy lifting is done before you even open the app.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Clustering Card -->
+<div class="md:col-span-2 glass-card rounded-[32px] p-8 space-y-6 relative overflow-hidden group">
+<div class="relative z-10 space-y-4">
+<div class="w-12 h-12 rounded-xl bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="hub">hub</span>
+</div>
+<h3 class="text-headline-md font-headline-md">Semantic Clustering</h3>
+<p class="text-on-surface-variant max-w-md">Watch as your disconnected thoughts find their place in a neural network of your own creation. Weave clusters related ideas, revealing hidden connections across months of records.</p>
+</div>
+<div class="absolute bottom-[-10%] right-[-10%] w-2/3 h-2/3 opacity-30 group-hover:scale-110 transition-transform duration-1000">
+<img alt="Clustering Visualization" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGq8fS4cld_peY2gB81fc-jVXD5lsUbctkT1EM9prDSuiHXrn92bIhRHT5EAOZej__EFgaurz_hgGKnSNlQdaZLuH0xLp2rA3Cis5y-iablRphMWgfWg7TevMLVWH-FEvUjZ2Wnu8-XQ8-piRv9_WAaz02Vbc8aCwTXkTXR5Y2lK53nS8U-Pw7I5nHJuxypw1LQ1HOY9UU7uKRlxBrafHW70B5NUporlSgNGEq_pGkdUgwwkxQ83K8la7S__rIvH0s6L40vHghXw8">
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="glass-card rounded-[32px] p-8 space-y-6 flex flex-col justify-between">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-xl bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="history">history</span>
+</div>
+<h3 class="text-headline-md font-headline-md">Evolution Tracking</h3>
+<p class="text-on-surface-variant">Trace how your perspectives change over time with AI-driven timeline analysis.</p>
+</div>
+<div class="h-32 bg-surface-container-high rounded-2xl border border-white/5 flex items-end p-4 gap-2">
+<div class="w-full bg-primary/40 h-[20%] rounded-t-sm"></div>
+<div class="w-full bg-primary/60 h-[45%] rounded-t-sm"></div>
+<div class="w-full bg-primary h-[80%] rounded-t-sm"></div>
+<div class="w-full bg-secondary h-[60%] rounded-t-sm"></div>
+<div class="w-full bg-tertiary h-[90%] rounded-t-sm"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Full Control (Editing) -->
+<section class="py-stack-lg px-container-margin-mobile md:px-container-margin-desktop max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center" id="control">
+<div class="order-2 md:order-1 relative flex justify-center">
+<div class="w-[320px] aspect-[9/19] rounded-[40px] border-8 border-surface-container-highest bg-background overflow-hidden relative shadow-2xl">
+<img alt="Thought Editing" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjPEzHqSATyuF2c3h1O8PljZLKkLSEx2G_0kPYN9wS-kmLzYuMBdSd_OHsmtxIzTlSa1acSoKokJ4uBcueSgQMIECWOTQwTtyNdI07fGzuvRKmp9WPJ0D1nh4vh6nwyPzrl9BBRhtwKI8sIXKSSLaPJE-hAqqawjl7hOqcNxbY2J4VQSN-0fRBvSRl8rUPz_WWORqf8ZrVA2rkdbgiAl-9M8ylZcDRpYxaXcXcrvKzrniPdL7w3e-pr951mKhRSzt6zQHMxSW4CLQ">
+</div>
+<div class="absolute -z-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl bottom-0 left-0"></div>
+</div>
+<div class="order-1 md:order-2 space-y-6">
+<span class="text-secondary font-label-md tracking-widest uppercase">Phase 03 — Refine</span>
+<h2 class="text-headline-lg md:text-display-lg font-headline-lg leading-tight">Polish your genius.</h2>
+<p class="text-body-lg text-on-surface-variant">The AI provides the foundation; you provide the soul. Edit transcriptions, refine summaries, and add manual links between thoughts with a tactile, glassmorphic editor designed for flow.</p>
+<div class="space-y-4">
+<div class="flex items-start gap-4 glass-card p-4 rounded-2xl border-white/5">
+<span class="material-symbols-outlined text-primary" data-icon="auto_fix">auto_fix</span>
+<div>
+<p class="font-label-md text-on-surface">Auto-Summarize</p>
+<p class="text-sm text-on-surface-variant">Condense a 10-minute rant into 3 actionable bullets.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 glass-card p-4 rounded-2xl border-white/5">
+<span class="material-symbols-outlined text-primary" data-icon="link">link</span>
+<div>
+<p class="font-label-md text-on-surface">Semantic Linking</p>
+<p class="text-sm text-on-surface-variant">Manually connect thoughts that share a common vision.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section class="py-stack-lg px-container-margin-mobile md:px-container-margin-desktop">
+<div class="max-w-5xl mx-auto glass-card rounded-[48px] p-8 md:p-24 text-center space-y-8 relative overflow-hidden shimmer-border" style="--mouse-x: 973px; --mouse-y: 423.359375px;">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 -z-10"></div>
+<h2 class="text-headline-lg md:text-[56px] font-headline-lg leading-none">Your mind is ready for its upgrade.</h2>
+<p class="text-body-lg text-on-surface-variant max-w-xl mx-auto text-outline">Join 10,000+ professionals who have transformed their chaotic thoughts into a coherent cognitive engine.</p>
+<div class="flex flex-col md:flex-row gap-4 justify-center pt-4">
+<a href="https://forms.gle/ZwecTxfx7aS5heS88" target="_blank"><button class="bg-primary text-on-primary px-12 py-5 rounded-full font-label-md text-xl ai-glow">Join Waitlist</button></a>
+<a href="https://calendly.com/shivam164pandey/30min" target="_blank"><button class="bg-surface-container-highest text-on-surface px-12 py-5 rounded-full font-label-md text-xl">Book a Demo</button></a>
+</div>
+<p class="text-label-sm text-outline">No credit card required. Free 7-day premium trial.</p>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full py-stack-md bg-surface-dim dark:bg-surface-dim border-t border-outline-variant flex flex-col items-center gap-base px-container-margin-mobile text-center">
+<div class="font-headline-md text-headline-md text-primary">Weave</div>
+<div class="flex gap-6 font-label-md text-label-md text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md opacity-60">© 2024 Weave AI. All rights reserved.</p>
+</footer>
+<!-- Mobile Bottom Nav -->
+<div class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container/90 backdrop-blur-2xl border-t border-white/10 rounded-t-xl h-20 pb-safe px-4 flex justify-around items-center">
+<div class="flex flex-col items-center justify-center text-primary relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-primary after:rounded-full">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="text-label-sm">Capture</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="library_music">library_music</span>
+<span class="text-label-sm">Library</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-sm">Settings</span>
+</div>
+</div>
+<script>
+       // Simple Micro-interaction for hover effects on glass cards
+       document.querySelectorAll('.glass-card').forEach(card => {
+           card.addEventListener('mousemove', (e) => {
+               const rect = card.getBoundingClientRect();
+               const x = e.clientX - rect.left;
+               const y = e.clientY - rect.top;
+               card.style.setProperty('--mouse-x', `${x}px`);
+               card.style.setProperty('--mouse-y', `${y}px`);
+           });
+       });
+   </script>
+</body></html>
